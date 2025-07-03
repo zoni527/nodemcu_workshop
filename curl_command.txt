@@ -1,0 +1,29 @@
+curl 'https://api.digitransit.fi/routing/v2/hsl/gtfs/v1' -X POST \
+-H 'digitransit-subscription-key: d7bd519438ce4c529b664e123828fd34' \
+-H 'content-type: application/graphql' \
+--data \
+'{
+  stop(id: "HSL:1113140") {
+    name
+    code
+    gtfsId
+    stoptimesWithoutPatterns {
+      realtime
+      realtimeState
+      scheduledArrival
+      realtimeArrival
+      arrivalDelay
+      scheduledDeparture
+      realtimeDeparture
+      departureDelay
+      headsign
+      trip {
+        id
+        gtfsId
+        route {
+          shortName
+        }
+      }
+    }
+  }
+}'
