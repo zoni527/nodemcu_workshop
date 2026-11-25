@@ -1,8 +1,17 @@
 print("Hello, world!")
 
+-- The API key lives in a file uploaded to the board only (see .gitignore),
+-- never in the repository.
+local key = file.getcontents("digitransit_key.txt")
+if not key then
+	print("Missing digitransit_key.txt: upload a file containing your Digitransit API key")
+	return
+end
+key = key:gsub("%s+$", "")
+
 http.post(
 	"https://api.digitransit.fi/routing/v2/hsl/gtfs/v1",
-	"digitransit-subscription-key:REMOVED&\
+	"digitransit-subscription-key:" .. key .. "&\
 	content-Type:application/graphql",
 	'{\
 		stop(id: "HSL:1113140") {\
